@@ -1,0 +1,13 @@
+<%- includes(:copyright,'') do |copyright| -%>
+<%= copyright -%>
+
+<%- end -%>
+<%- ['VagrantPlugins', *@modules[1..-1]].each_with_index do |namespace,n| -%>
+<%= indent(n) %>module <%= namespace %>
+<%- end -%>
+<%= indent(@module_depth) %># <%= @name %> version
+<%= indent(@module_depth) %>class Plugin < Vagrant.plugin(2)
+<%= indent(@module_depth + 1) %>name '<%= @namespace_dir %>'
+<%- (@module_depth).downto(0) do |n| -%>
+<%= indent(n) %>end
+<%- end -%>
